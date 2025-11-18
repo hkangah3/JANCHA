@@ -3,21 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="learn.css">
+    <title>Housing Portal</title>
+
+    <!-- Global styles first -->
     <link rel="stylesheet" href="styles.css">
-    <title>Portal</title>
+    <link rel="stylesheet" href="portal.css"> 
 </head>
 <body>
-    <!-- NAVIGATION -->
-    <div class="navbar">
-        <a href="index.html" class="logo-learn">
+
+    <!-- NAVIGATION (matches homepage) -->
+    <nav class="navbar">
+        <div class="logo">
             <img src="jancha.jpg" alt="JANCHA Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="apply.html">Apply Now</a></li>
+            <li><a href="explore.html">Explore Options</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO / TOP SECTION -->
+    <div class="portal-hero">
+        <div class="portal-hero-text">
+            <h1>Welcome to Your Housing Portal</h1>
+            <h3>View your fees, submit maintenance requests, update your profile, and manage your leases — all in one place.</h3>
+        </div>
+        <div class="portal-hero-img">
+            <img src="students laughing.jpg" alt="Students">
+        </div>
+    </div>
+
+    <!-- PORTAL LINKS -->
+    <div class="portal-links">
+        <a href="fee.html" class="portal-card">
+            <h2>Fee</h2>
+            <p>Review your housing charges, payments, and upcoming balances.</p>
+        </a>
+
+        <a href="maintenance.html" class="portal-card">
+            <h2>Maintenance</h2>
+            <p>Submit maintenance requests and track the status of open work orders.</p>
+        </a>
+
+        <a href="profile.html" class="portal-card">
+            <h2>Profile</h2>
+            <p>Update your contact information, preferences, and emergency details.</p>
+        </a>
+
+        <a href="leases.html" class="portal-card">
+            <h2>Leases</h2>
+            <p>View your current lease, terms, and important housing documents.</p>
         </a>
     </div>
 
-    <!-- Main Body -->
-    <div class="body-container">
-        
-    </div>
 </body>
 </html>
