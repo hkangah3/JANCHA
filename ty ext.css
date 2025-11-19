@@ -1,0 +1,70 @@
+/* PAGE BACKGROUND */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.page-bg {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #4a1d74, #5d2ea6, #7647c9, #8d3fc7);
+    z-index: -1;
+}
+
+/* CARD */
+.card {
+    width: 450px;
+    background: white;
+    padding: 40px 50px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* LOGO */
+.brand-logo {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+/* TEXT */
+.title {
+    font-size: 26px;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.message {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    padding: 14px 26px;
+    background: linear-gradient(90deg, #4a1d74, #7a3eb1, #e2a423);
+    color: white;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    filter: brightness(1.12);
+}
