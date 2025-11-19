@@ -1,0 +1,72 @@
+/* GENERAL */
+body {
+    margin: 0;
+    background: #f5f7fa;
+    font-family: system-ui, sans-serif;
+    padding-top: 70px; /* space for navbar */
+    scroll-behavior: smooth;
+}
+
+/* LAYOUT GRID */
+.layout {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: sticky;
+    top: 90px;
+    width: 230px;
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    height: fit-content;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.sidebar h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #c89ce8;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    background: #f9f0ff;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: 0.25s;
+    color: #000000;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #c372fd;   /* same color as your button */
+    color: #000000;        /* same text color as your button */
+}
+
+/* MAIN CONTENT */
+.content {
+    flex: 1;
+}
+
+/* BUBBLE (CARD) SECTIONS */
+.bubble {
+    background: white;
+    padding: 30px;
+    margin-bottom: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    scroll-margin-top: 100px; /* ensures top aligns with sidebar */
+}
+
+.bubble h2 {
+    color: #3b105a;
+    margin-top: 0;
+    font-size: 1.6rem;
+}

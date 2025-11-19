@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JANCHA Registration</title>
+    <link rel="stylesheet" href="application ext.css">
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<div class="card">
+    
+    <img src="jancha logo final.png" class="brand-logo">
+
+    <p class="subtitle">Serving Panthers</p>
+
+    <h2 class="title">Housing Application</h2>
+
+    <form action="register_process.php" method="POST">
+
+        <label>First Name*</label>
+        <input type="text" name="first_name" required>
+
+        <label>Last Name*</label>
+        <input type="text" name="last_name" required>
+
+        <label>Email*</label>
+        <input type="email" name="email" placeholder="example@pvamu.edu" required>
+
+        <label>Phone Number*</label>
+        <input type="text" name="phone" placeholder="123-456-7890" required>
+
+        <label>Classification*</label>
+        <select name="enrollment_status" required>
+            <option value="">-- Select Classification --</option>
+            <option value="Freshman">Freshman</option>
+            <option value="Sophomore">Sophomore</option>
+            <option value="Junior">Junior</option>
+            <option value="Senior">Senior</option>
+        </select>
+
+        <button type="submit" class="btn">Register</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+/* ---------- PAGE BACKGROUND ---------- */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.page-bg {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #4a1d74, #5d2ea6, #7647c9, #8d3fc7);
+    z-index: -1;
+}
+
+/* ---------- WHITE CARD ---------- */
+.card {
+    width: 430px;
+    background: white;
+    margin: 80px auto;
+    padding: 40px 50px;
+    border-radius: 40px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* ---------- LOGO ---------- */
+.brand-logo {
+    width: 180px;
+    display: block;
+    margin: 0 auto;
+}
+
+.subtitle {
+    text-align: center;
+    color: #7a85a0;
+    font-size: 18px;
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+
+.title {
+    text-align: left;
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* ---------- INPUT FIELDS ---------- */
+label {
+    display: block;
+    margin-top: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    background: #faf8ff;
+    border: 1px solid #dcd2ff;
+    border-radius: 12px;
+    outline: none;
+    font-size: 15px;
+    margin-top: 6px;
+}
+
+input:focus, select:focus {
+    border-color: #7647c9;
+    box-shadow: 0 0 5px rgba(118,71,201,0.35);
+}
+
+/* ---------- BUTTON ---------- */
+.btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 30px;
+    background: linear-gradient(90deg, #4a1d74, #7a3eb1, #e2a423);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    filter: brightness(1.1);
+}

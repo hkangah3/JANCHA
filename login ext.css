@@ -1,0 +1,150 @@
+/* PAGE BACKGROUND */
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #582c83, #7d4bb5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* CARD CONTAINER */
+.card {
+    width: 1100px;
+    height: 600px;
+    background: white;
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+}
+
+/* LEFT SIDE */
+.left {
+    width: 45%;
+    padding: 150px 70px 70px 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* LOGO */
+.brand-logo {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+/* SUBTITLE */
+.brand-sub {
+    margin-top: 5px;
+    font-size: 20px;
+    color: #68708e;
+}
+
+/* RESERVED SPACE ABOVE THE LOGIN BUTTON */
+.form-wrapper {
+    position: relative;
+    height: 150px;
+}
+
+/* LOGIN FORM — appears ABOVE button */
+.login-form {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.7s ease;
+
+    pointer-events: none;
+}
+
+.login-form--show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* FORM FIELDS */
+label {
+    margin-top: 10px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: #333;
+    display: block;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #dcd0ef;
+    background: #fafaff;
+}
+
+/* LOGIN BUTTON (STATIC POSITION) */
+.start-btn {
+    margin-top: 20px;
+    width: 160px;
+    align-self: flex-start;
+}
+
+/* BUTTON STYLE */
+.primary-btn {
+    padding: 12px 28px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    background: linear-gradient(90deg, #582c83, #e4a116);
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+/* RIGHT SIDE */
+.right {
+    width: 55%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* FULL-SIZE IMAGE */
+.full-img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* CURVED MASK ON LEFT EDGE OF IMAGE */
+.curve-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 40%;
+    height: 100%;
+
+    background: white;
+    border-radius: 0 50% 50% 0 / 0 60% 40% 0;
+
+    transition: all 1.2s cubic-bezier(.4,.1,.2,1);
+    z-index: 2;
+}
+
+/* CURVE → STRAIGHT LINE */
+.curve-overlay.morph {
+    border-radius: 0;
+    width: 0%;
+}

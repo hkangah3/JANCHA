@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta-name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JANCHA Login</title>
+    <link rel="stylesheet" href="login ext.css">
+</head>
+<body>
+
+<div class="card">
+
+    <!-- LEFT SIDE -->
+    <div class="left">
+
+        <a href="index.html">
+        <img src="jancha logo final.png" class="brand-logo">
+        </a>
+
+        <p class="brand-sub">Serving Panthers</p>
+
+        <!-- container ABOVE the login button -->
+        <div class="form-wrapper">
+            <div class="login-form" id="loginForm">
+                <form>
+                    <label>Email</label>
+                    <input type="email" required>
+
+                    <label>Password</label>
+                    <input type="password" required>
+                </form>
+            </div>
+        </div>
+
+        <!-- LOGIN BUTTON (stays forever in same spot) -->
+        <button id="startBtn" class="primary-btn start-btn">Login</button>
+
+    </div>
+
+    <!-- RIGHT IMAGE AREA -->
+    <div class="right">
+        <img src="da view.JPG" class="full-img">
+
+        <!-- CURVED OVERLAY ONLY ON LEFT SIDE OF IMAGE -->
+        <div class="curve-overlay" id="curveOverlay"></div>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("loginForm");
+    const startBtn = document.getElementById("startBtn");
+    const curveOverlay = document.getElementById("curveOverlay");
+
+    startBtn.addEventListener("click", () => {
+
+        // Morph curve → straight line
+        curveOverlay.classList.add("morph");
+
+        // Reveal email + password ABOVE login button
+        loginForm.classList.add("login-form--show");
+    });
+});
+</script>
+
+</body>
+</html>
