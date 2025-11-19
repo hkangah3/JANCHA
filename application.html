@@ -11,39 +11,161 @@
 <div class="page-bg"></div>
 
 <div class="card">
-    
-    <img src="jancha logo final.png" class="brand-logo">
 
+    <img src="jancha logo final.png" class="brand-logo">
     <p class="subtitle">Serving Panthers</p>
 
     <h2 class="title">Housing Application</h2>
 
     <form action="register_process.php" method="POST">
 
+        <!-- 1. FIRST NAME -->
         <label>First Name*</label>
         <input type="text" name="first_name" required>
 
+        <!-- 2. LAST NAME -->
         <label>Last Name*</label>
         <input type="text" name="last_name" required>
 
+        <!-- 3. STUDENT ID -->
+        <label>Student ID*</label>
+        <input type="text" name="student_id" required>
+
+        <!-- 4. EMAIL -->
         <label>Email*</label>
         <input type="email" name="email" placeholder="example@pvamu.edu" required>
 
+        <!-- 5. PHONE -->
         <label>Phone Number*</label>
         <input type="text" name="phone" placeholder="123-456-7890" required>
 
+        <!-- 6. CLASSIFICATION -->
         <label>Classification*</label>
-        <select name="enrollment_status" required>
-            <option value="">-- Select Classification --</option>
+        <select name="classification" id="classification" required>
+            <option value="">Select</option>
             <option value="Freshman">Freshman</option>
             <option value="Sophomore">Sophomore</option>
             <option value="Junior">Junior</option>
             <option value="Senior">Senior</option>
         </select>
 
+        <!-- 7. HOUSING UNIT -->
+        <label>Housing Unit*</label>
+        <select id="housingUnit" name="housing_unit" required>
+            <option value="">Select</option>
+        </select>
+
+        <!-- 8. FLOOR PLAN -->
+        <label>Floor Plan*</label>
+        <select id="floorPlan" name="floor_plan" required>
+            <option value="">Select</option>
+        </select>
+
         <button type="submit" class="btn">Register</button>
+
     </form>
 </div>
+
+<script>
+// --------------------------------------------
+// CLASSIFICATION → HOUSING UNIT MAPPING
+// --------------------------------------------
+const housingByClass = {
+    "Freshman": [
+        "University College",
+        "University Village (Phase 3)"
+    ],
+    "Sophomore": [
+        "University Village (Phase 1)",
+        "University Village (Phase 2)",
+        "University Village (Phase 6)"
+    ],
+    "Junior": [
+        "University Square",
+        "University View"
+    ],
+    "Senior": [
+        "University Square",
+        "University View"
+    ]
+};
+
+// --------------------------------------------
+// HOUSING UNIT → FLOOR PLAN MAPPING
+// --------------------------------------------
+const floorPlans = {
+    "University College": ["UC – 2×1 Suite"],
+
+    "University Village (Phase 3)": [
+        "Village – 4×2 (Phase 3)",
+        "Village – 2×2 (Phase 3)"
+    ],
+
+    "University Village (Phase 1)": [
+        "Village – 4×2 (Phase 1)"
+    ],
+
+    "University Village (Phase 2)": [
+        "Village – 2×2 (Phase 2)"
+    ],
+
+    "University Village (Phase 6)": [
+        "Village – 4×4 (Phase 6)"
+    ],
+
+    "University Square": [
+        "Square – 4×4 Quad",
+        "Square – 2×2 Deluxe",
+        "Square – 2×2.5 Townhome",
+        "Square – 2×2 Standard"
+    ],
+
+    "University View": [
+        "View – 4×4",
+        "View – 3×3",
+        "View – 2×2 Deluxe",
+        "View – 2×2 Standard"
+    ]
+};
+
+// DOM ELEMENTS
+const classification = document.getElementById("classification");
+const housingUnit = document.getElementById("housingUnit");
+const floorPlan = document.getElementById("floorPlan");
+
+// CLASSIFICATION → HOUSING UNIT FILTERING
+classification.addEventListener("change", () => {
+    const classPick = classification.value;
+
+    housingUnit.innerHTML = '<option value="">Select</option>';
+    floorPlan.innerHTML = '<option value="">Select</option>';
+
+    if (housingByClass[classPick]) {
+        housingByClass[classPick].forEach(unit => {
+            const opt = document.createElement("option");
+            opt.value = unit;
+            opt.textContent = unit;
+            housingUnit.appendChild(opt);
+        });
+    }
+});
+
+// HOUSING UNIT → FLOOR PLAN FILTERING
+housingUnit.addEventListener("change", () => {
+    const unitPick = housingUnit.value;
+
+    floorPlan.innerHTML = '<option value="">Select</option>';
+
+    if (floorPlans[unitPick]) {
+        floorPlans[unitPick].forEach(plan => {
+            const opt = document.createElement("option");
+            opt.value = plan;
+            opt.textContent = plan;
+            floorPlan.appendChild(opt);
+        });
+    }
+});
+</script>
 
 </body>
 </html>
