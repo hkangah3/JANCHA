@@ -3,58 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Housing Portal</title>
+    <title>JANCHA Housing Dashboard</title>
 
-    <!-- Global styles first -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="portal.css"> 
+    <!-- NAVBAR CSS -->
+    <link rel="stylesheet" href="navbar.css">
+
+    <!-- PAGE CSS -->
+    <link rel="stylesheet" href="portal ext.css">
 </head>
 <body>
 
-    <!-- NAVIGATION (matches homepage) -->
-    <nav class="navbar">
-        <div class="logo">
-            <img src="jancha.jpg" alt="JANCHA Logo">
-        </div>
-        <ul class="nav-links">
-            <li><a href="apply.html">Apply Now</a></li>
-            <li><a href="explore.html">Explore Options</a></li>
-        </ul>
-    </nav>
-
-    <!-- HERO / TOP SECTION -->
-    <div class="portal-hero">
-        <div class="portal-hero-text">
-            <h1>Welcome to Your Housing Portal</h1>
-            <h3>View your fees, submit maintenance requests, update your profile, and manage your leases — all in one place.</h3>
-        </div>
-        <div class="portal-hero-img">
-            <img src="students laughing.jpg" alt="Students">
-        </div>
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">
+        <a href="index.html"><img src="jancha.jpg" alt="JANCHA Logo"></a>
     </div>
 
-    <!-- PORTAL LINKS -->
-    <div class="portal-links">
-        <a href="fee.html" class="portal-card">
-            <h2>Fee</h2>
-            <p>Review your housing charges, payments, and upcoming balances.</p>
-        </a>
+    <ul class="nav-links">
+        <li><a href="portal.html">Housing Portal</a></li>
+        <li><a href="apply.html">Application</a></li>
+        <li><a href="plans.html">Catalog</a></li>
+    </ul>
+</nav>
 
-        <a href="maintenance.html" class="portal-card">
-            <h2>Maintenance</h2>
-            <p>Submit maintenance requests and track the status of open work orders.</p>
-        </a>
+<div class="layout">
 
-        <a href="profile.html" class="portal-card">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h3>Dashboard</h3>
+        <a href="#profile">Profile</a>
+        <a href="#room_assignment">Room Assignment</a>
+        <a href="#fees">Fees</a>
+        <a href="#maintenance">Maintenance</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+
+        <!-- EACH BUBBLE SECTION -->
+        <section id="profile" class="bubble">
             <h2>Profile</h2>
-            <p>Update your contact information, preferences, and emergency details.</p>
-        </a>
+            <p>database</p>
+        </section>
 
-        <a href="leases.html" class="portal-card">
-            <h2>Leases</h2>
-            <p>View your current lease, terms, and important housing documents.</p>
-        </a>
-    </div>
+        <section id="room_assignment" class="bubble">
+            <h2>Room Assignment</h2>
+            <p>database</p>
+        </section>
 
+        <section id="fees" class="bubble">
+            <h2>Fees</h2>
+            <p>database</p>
+        </section>
+
+        <section id="maintenance" class="bubble">
+            <h2>Maintenance Requests</h2>
+            <p>database</p>
+        </section>
+
+    </main>
+</div>
+
+<script src="portal_fx.js"></script>
 </body>
 </html>
