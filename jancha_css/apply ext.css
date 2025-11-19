@@ -2,11 +2,14 @@
 body {
     margin: 0;
     font-family: "Segoe UI", sans-serif;
+
     display: flex;
     justify-content: center;
-    align-items: flex-start;   /* keeps card at the top */
-    padding-top: 60px;         /* adds top space */
-    padding-bottom: 60px;      /* adds bottom space */
+    align-items: flex-start;   /* keeps card near top */
+
+    padding-top: 60px;         /* equal spacing */
+    padding-bottom: 60px;      /* equal spacing */
+
     height: auto;
     min-height: 100vh;
     overflow-y: auto;
@@ -19,9 +22,9 @@ body {
     padding: 40px 50px;
     border-radius: 40px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    margin-bottom: 60px;       /* adds bottom spacing */
-}
 
+    margin-bottom: 0;          /* FIX — removed extra space */
+}
 
 .page-bg {
     position: fixed;
@@ -62,17 +65,17 @@ label {
 
 input, select {
     width: 100%;
-    padding: 14px;                 
+    padding: 14px;
     margin-top: 8px;
     margin-bottom: 8px;
-    
+
     background: #faf8ff;
     border: 1px solid #dcd2ff;
-    border-radius: 14px;           
-    
+    border-radius: 14px;
+
     font-size: 15px;
     line-height: 1.2;
-    
+
     outline: none;
     box-sizing: border-box;
     transition: 0.25s ease;
@@ -87,7 +90,6 @@ select {
     background-size: 16px;
 }
 
-/* Hover/Focus Styling */
 input:hover, select:hover {
     border-color: #b79cff;
 }
@@ -109,9 +111,11 @@ input:-webkit-autofill:focus {
     width: 100%;
     padding: 14px;
     margin-top: 35px;
+
     background: linear-gradient(90deg, #4a1d74, #7a3eb1, #e2a423);
     border: none;
     border-radius: 14px;
+
     color: white;
     font-size: 17px;
     cursor: pointer;
@@ -121,4 +125,3 @@ input:-webkit-autofill:focus {
 .btn:hover {
     filter: brightness(1.1);
 }
-
