@@ -2,6 +2,11 @@
 body {
     margin: 0;
     font-family: "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 40px;
+    height: 100vh;
 }
 
 .page-bg {
@@ -13,9 +18,8 @@ body {
 
 /* ---------- WHITE CARD ---------- */
 .card {
-    width: 430px;
+    width: 500px;
     background: white;
-    margin: 80px auto;
     padding: 40px 50px;
     border-radius: 40px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
@@ -23,7 +27,7 @@ body {
 
 /* ---------- LOGO ---------- */
 .brand-logo {
-    width: 180px;
+    width: 160px;
     display: block;
     margin: 0 auto;
 }
@@ -33,45 +37,101 @@ body {
     color: #7a85a0;
     font-size: 18px;
     margin-top: 5px;
-    margin-bottom: 25px;
-}
-
-.title {
-    text-align: left;
-    font-size: 26px;
-    color: #333;
     margin-bottom: 20px;
 }
 
-/* ---------- INPUT FIELDS ---------- */
+.title {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* ---------- INPUTS & SELECTS ---------- */
 label {
     display: block;
-    margin-top: 18px;
+    margin-top: 15px;
     font-weight: 600;
     color: #333;
 }
 
 input, select {
     width: 100%;
-    padding: 12px;
+    padding: 14px;                   /* SAME HEIGHT FOR BOTH */
+    margin-top: 8px;
+    margin-bottom: 6px;             /* EVEN SPACING */
+    
     background: #faf8ff;
     border: 1px solid #dcd2ff;
-    border-radius: 12px;
-    outline: none;
+    border-radius: 14px;             /* ROUND EVERYTHING */
+    
     font-size: 15px;
-    margin-top: 6px;
+    line-height: 1.2;
+    
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.25s ease;
+}
+
+/* ---------- PRETTY SELECT ARROW (ROUNDED DROPDOWN) ---------- */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 8L10 13L15 8' stroke='%23582c83' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+}
+
+/* Hover/Focus Styling */
+input:hover, select:hover {
+    border-color: #b79cff;
 }
 
 input:focus, select:focus {
     border-color: #7647c9;
-    box-shadow: 0 0 5px rgba(118,71,201,0.35);
+    box-shadow: 0 0 7px rgba(118, 71, 201, 0.45);
+}
+
+/* Autofill Fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    box-shadow: 0 0 0px 1000px #faf8ff inset !important;
+}
+
+
+/* Autofill fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    box-shadow: 0 0 0px 1000px #faf8ff inset !important;
+}
+
+/* ---------- CUSTOM SELECT ARROW ---------- */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7L10 12L15 7' stroke='%23582c83' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+select:hover {
+    border-color: #a88bff;
+}
+
+select:focus {
+    border-color: #7647c9;
+    box-shadow: 0 0 8px rgba(118,71,201,0.4);
 }
 
 /* ---------- BUTTON ---------- */
 .btn {
     width: 100%;
     padding: 14px;
-    margin-top: 30px;
+    margin-top: 35px;
     background: linear-gradient(90deg, #4a1d74, #7a3eb1, #e2a423);
     border: none;
     border-radius: 14px;
