@@ -47,19 +47,32 @@
 
 </div>
 
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
     const startBtn = document.getElementById("startBtn");
     const curveOverlay = document.getElementById("curveOverlay");
 
+    let firstClick = true; // track state
+
     startBtn.addEventListener("click", () => {
 
-        // Morph curve → straight line
-        curveOverlay.classList.add("morph");
+        if (firstClick) {
+            // FIRST CLICK → ANIMATE + SHOW INPUTS
 
-        // Reveal email + password ABOVE login button
-        loginForm.classList.add("login-form--show");
+            curveOverlay.classList.add("morph");
+            loginForm.classList.add("login-form--show");
+
+            // Change button text (optional)
+            startBtn.textContent = "Continue";
+
+            firstClick = false; 
+        } else {
+            // SECOND CLICK → GO TO index.html
+            window.location.href = "index.html";
+        }
+
     });
 });
 </script>
