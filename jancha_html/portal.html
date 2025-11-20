@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JANCHA Housing Portal</title>
+    <title>JANCHA Housing Dashboard</title>
 
     <!-- NAVBAR CSS -->
     <link rel="stylesheet" href="navbar.css">
 
     <!-- PAGE CSS -->
     <link rel="stylesheet" href="portal ext.css">
+    
     <style>
         table {
             width: 100%;
@@ -58,7 +59,7 @@
 
     <ul class="nav-links">
         <li><a href="portal.html">Housing Portal</a></li>
-        <li><a href="application.html">Application</a></li>
+        <li><a href="apply.html">Apply Now</a></li>
         <li><a href="login.html">Login</a></li>
     </ul>
 </nav>
@@ -69,7 +70,7 @@
     <aside class="sidebar">
         <h3>Dashboard</h3>
         <a href="#profile">Student Profile</a>
-        <a href="#Assignment">Assignment</a>
+        <a href="#lease">Assignment</a>
         <a href="#fees">Fees</a>
         <a href="#maintenance">Maintenance</a>
     </aside>
@@ -78,71 +79,71 @@
     <main class="content">
 
         <!-- EACH BUBBLE SECTION -->
-         <section id="profile" class="bubble">
-            <h2>Student Profile</h2>
-            <div style="margin-bottom: 10px;">
-                <label>Filter by Enrollment Status: 
-                    <select id="enrollment-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                        <option value="">All Students</option>
-                        <option value="Freshman">Freshman</option>
-                        <option value="Sophomore">Sophomore</option>
-                        <option value="Junior">Junior</option>
-                        <option value="Senior">Senior</option>
-                    </select>
-                </label>
-            </div>
-            <div id="students-content">
-                <p class="loading">Loading student data...</p>
-            </div>
-        </section>
-        
-                <section id="Assignment" class="bubble">
-                    <h2>Assignment</h2>
-                    <div id="assignment-content">
-                        <p class="loading">Loading assignment data...</p>
-                    </div>
-                </section>
-        
-                <section id="fees" class="bubble">
-                    <h2>Outstanding Fees</h2>
-                    <div style="margin-bottom: 10px;">
-                <label>Filter by Payment Status: 
-                    <select id="fees-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                        <option value="">All Fees</option>
-                        <option value="Unpaid">Unpaid Only</option>
-                        <option value="Late">Late Only</option>
-                    </select>
-                </label>
-            </div>
-                    <div id="fees-content">
-                        <p class="loading">Loading fees data...</p>
-                    </div>
-                </section>
-        
-                <section id="maintenance" class="bubble">
-                    <h2>Maintenance Requests</h2>
-                    <div style="margin-bottom: 10px;">
-                <label>Filter by Status: 
-                    <select id="maintenance-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                        <option value="">All Requests</option>
-                        <option value="pending">Pending</option>
-                        <option value="received">Received</option>
-                    </select>
-                </label>
-            </div>
-                    <div id="maintenance-content">
-                        <p class="loading">Loading maintenance data...</p>
-                    </div>
-                </section>
-        
-            </main>
+        <section id="profile" class="bubble">
+        <h2>Student Profile</h2>
+        <div style="margin-bottom: 10px;">
+            <label>Filter by Enrollment Status: 
+                <select id="enrollment-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">All Students</option>
+                    <option value="Freshman">Freshman</option>
+                    <option value="Sophomore">Sophomore</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Senior">Senior</option>
+                </select>
+            </label>
         </div>
+        <div id="students-content">
+            <p class="loading">Loading student data...</p>
+        </div>
+    </section>
+
+            <section id="Assignment" class="bubble">
+                <h2>Assignment</h2>
+                <div id="assignment-content">
+                    <p class="loading">Loading assignment data...</p>
+                </div>
+            </section>
+
+            <section id="fees" class="bubble">
+                <h2>Outstanding Fees</h2>
+                <div style="margin-bottom: 10px;">
+            <label>Filter by Payment Status: 
+                <select id="fees-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">All Fees</option>
+                    <option value="Unpaid">Unpaid Only</option>
+                    <option value="Late">Late Only</option>
+                </select>
+            </label>
+        </div>
+                <div id="fees-content">
+                    <p class="loading">Loading fees data...</p>
+                </div>
+            </section>
+
+            <section id="maintenance" class="bubble">
+                <h2>Maintenance Requests</h2>
+                <div style="margin-bottom: 10px;">
+            <label>Filter by Status: 
+                <select id="maintenance-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">All Requests</option>
+                    <option value="pending">Pending</option>
+                    <option value="received">Received</option>
+                </select>
+            </label>
+        </div>
+                <div id="maintenance-content">
+                    <p class="loading">Loading maintenance data...</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
 
 <script src="portal_fx.js"></script>
 <script>
-    
-// Store all fees data globally
+   // Store all fees data globally
 let allFeesData = [];
+
 // Load and display fees data with filtering
 async function loadFeesData(filterStatus = '') {
     try {
@@ -224,6 +225,9 @@ async function loadFeesData(filterStatus = '') {
             `<p class="error">Failed to load fees data: ${error.message}</p>`;
     }
 }
+    
+
+    
     //Load assignment table
     async function loadAssignmentData() {
         try {
@@ -232,6 +236,7 @@ async function loadFeesData(filterStatus = '') {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
+            
             const data = await response.json();
             
             const assignmentContent = document.getElementById('assignment-content');
@@ -281,9 +286,9 @@ async function loadFeesData(filterStatus = '') {
                 `<p class="error">Failed to load assignments data: ${error.message}</p>`;
         }
     }
-
-    // Store all fees data globally
+    
     let maintenanceData = [];
+
     // Load maintenance requests
     async function loadMaintenanceData(filterStatus = '') {
         try {
@@ -310,7 +315,9 @@ async function loadFeesData(filterStatus = '') {
         if (filterStatus !== '') {
             filteredData = maintenanceData.filter(request => request.status.toLowerCase() === filterStatus.toLowerCase());
         }
+            
             const maintenanceContent = document.getElementById('maintenance-content');
+            
             
             if (filteredData.length === 0) {
                 maintenanceContent.innerHTML = '<p>No pending maintenance requests found.</p>';
@@ -424,14 +431,13 @@ async function loadFeesData(filterStatus = '') {
                 `<p class="error">Failed to load students data: ${error.message}</p>`;
         }
     }
-    // Load data when page loads
+        // Load data when page loads
     window.addEventListener('DOMContentLoaded', () => {
         loadFeesData();
         loadMaintenanceData();
         loadAssignmentData();
         loadStudentsData();
 
-        // Add filter listener for enrollment status
         const enrollmentFilter = document.getElementById('enrollment-filter');
         enrollmentFilter.addEventListener('change', function() {
         loadStudentsData(this.value);
@@ -449,7 +455,6 @@ async function loadFeesData(filterStatus = '') {
         loadMaintenanceData(this.value);
         });
     });
-    
-</script>    
+</script>
 </body>
 </html>
