@@ -59,7 +59,7 @@
 
     <ul class="nav-links">
         <li><a href="portal.html">Housing Portal</a></li>
-        <li><a href="apply.html">Apply Now</a></li>
+        <li><a href="apply.html">Application</a></li>
         <li><a href="login.html">Login</a></li>
     </ul>
 </nav>
@@ -137,22 +137,27 @@
                 </div>
             </section>
 
-
-            <section id="ca_profile" class="bubble">
-                <h2>Maintenance Requests</h2>
-                <div style="margin-bottom: 10px;">
-            <label>Filter by Housing Unit: 
-                <select id="housing-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-                    <option value="">All Requests</option>
-                    <option value="pending">Pending</option>
-                    <option value="received">Received</option>
+            <section id="ca" class="bubble">
+            <h2>Community Advisors</h2>
+            <div style="margin-bottom: 15px;">
+                <label for="dorm-filter" style="font-weight: bold; margin-right: 10px;">Filter by Dorm:</label>
+                <select id="dorm-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">All Dorms</option>
+                    <option value="University College">University College</option>
+                    <option value="University Village III">University Village III</option>
+                    <option value="University View I ">University View I</option>
+                    <option value="University Square">University Square</option>
+                    <option value="University Village VI">University Village VI</option>
+                    <option value="University Village I">University Village I</option>
+                    <option value="University Village II">University Village II</option>
+                    <option value="University View II">University View II</option>
                 </select>
-            </label>
-        </div>
-                <div id="maintenance-content">
-                    <p class="loading">Loading maintenance data...</p>
-                </div>
-            </section>
+            </div>
+            
+            <div id="ca-content">
+                <p class="loading">Loading community advisors...</p>
+            </div>
+        </section>
 
         </main>
     </div>
@@ -449,12 +454,72 @@ async function loadFeesData(filterStatus = '') {
                 `<p class="error">Failed to load students data: ${error.message}</p>`;
         }
     }
+
+        async function loadCAData(dormFilter = '') {
+        try {
+            // Build URL with filter if provided
+            let url = 'Ca.php';
+            if (dormFilter) {
+                url += '?dorm_name=' + encodeURIComponent(dormFilter);
+            }
+            
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            const caContent = document.getElementById('ca-content');
+            
+            if (data.error) {
+                caContent.innerHTML = `<p class="error">Error: ${data.error}</p>`;
+                return;
+            }
+            
+            if (data.length === 0) {
+                caContent.innerHTML = '<p>No community advisors found.</p>';
+                return;
+            }
+            
+            // Create table
+            let tableHTML = `
+                <table>
+                    <tr>
+                        <th>Dorm Name</th>
+                        <th>CA Name</th>
+                        <th>Email</th>
+                    </tr>
+            `;
+            
+            data.forEach(row => {
+                tableHTML += `
+                    <tr>
+                        <td>${row.dorm_name}</td>
+                        <td>${row.ca_name}</td>
+                        <td><a href="mailto:${row.email}">${row.email}</a></td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += '</table>';
+            caContent.innerHTML = tableHTML;
+            
+        } catch (error) {
+            console.error('Error loading CAs:', error);
+            document.getElementById('ca-content').innerHTML = 
+                `<p class="error">Failed to load community advisors: ${error.message}</p>`;
+        }
+    }
+
         // Load data when page loads
     window.addEventListener('DOMContentLoaded', () => {
         loadFeesData();
         loadMaintenanceData();
         loadAssignmentData();
         loadStudentsData();
+        loadCAData();
 
         const enrollmentFilter = document.getElementById('enrollment-filter');
         enrollmentFilter.addEventListener('change', function() {
@@ -471,6 +536,11 @@ async function loadFeesData(filterStatus = '') {
         const maintenanceFilter = document.getElementById('maintenance-filter');
         maintenanceFilter.addEventListener('change', function() {
         loadMaintenanceData(this.value);
+        });
+
+        // Add filter listener for Dorm Name
+        document.getElementById('dorm-filter').addEventListener('change', function() {
+            loadCAData(this.value);
         });
     });
 </script>
