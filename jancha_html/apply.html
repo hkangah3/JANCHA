@@ -14,7 +14,7 @@
 <div class="card">
 
     <a href="index.html">
-        <img src="jancha.png" class="brand-logo">
+        <img src="jancha.jpg" class="brand-logo">
     </a>
 
     <p class="subtitle">Serving Panthers</p>
@@ -23,7 +23,7 @@
 
         <!-- LEFT SIDE -->
         <div class="left-side">
-            <form>
+            <form action="register_student.php" method="POST" id="registrationForm">
 
                 <label>First Name*</label>
                 <input type="text" name="first_name" required>
@@ -55,7 +55,7 @@
                 <input type="hidden" name="housing_unit" id="housingUnitInput">
                 <input type="hidden" name="room" id="roomNumberInput">
 
-                <a href="ty.html" class="btn">Register</a>
+                <button type="submit" class="btn">Register</button>
 
             </form>
         </div>
@@ -83,7 +83,25 @@
 </div>
 
 <script src="apply fx.js"></script>
-
+<script>
+    // Validate that classification and room are selected before submitting
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        const classification = document.getElementById('classificationInput').value;
+        const room = document.getElementById('roomNumberInput').value;
+        
+        if (!classification) {
+            e.preventDefault();
+            alert('Please select a classification');
+            return false;
+        }
+        
+        if (!room) {
+            e.preventDefault();
+            alert('Please select a room number');
+            return false;
+        }
+    });
+</script>
 </body>
 </html>
 
