@@ -1,127 +1,211 @@
-/* PAGE BACKGROUND */
-body {
-    margin: 0;
-    font-family: "Segoe UI", sans-serif;
-
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;   /* keeps card near top */
-
-    padding-top: 60px;         /* equal spacing */
-    padding-bottom: 60px;      /* equal spacing */
-
-    height: auto;
-    min-height: 100vh;
-    overflow-y: auto;
-}
-
-/* CARD */
-.card {
-    width: 500px;
-    background: white;
-    padding: 40px 50px;
-    border-radius: 40px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-
-    margin-bottom: 0;          /* FIX — removed extra space */
-}
-
+/* =========================================
+   PAGE BACKGROUND
+========================================= */
 .page-bg {
     position: fixed;
     inset: 0;
-    background: linear-gradient(135deg, #4a1d74, #5d2ea6, #7647c9, #8d3fc7);
+    background: linear-gradient(135deg, #4a1d74, #5d2ea6, #7647c9, #8d47c7);
     z-index: -1;
 }
 
-/* ---------- LOGO ---------- */
+/* =========================================
+   BODY
+========================================= */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 60px 0;
+}
+
+/* =========================================
+   MAIN CARD (RESPONSIVE)
+========================================= */
+.card {
+    max-width: 1100px;
+    width: 95%;
+    margin: 0 auto;
+    background: white;
+    padding: 55px 65px;
+    border-radius: 40px;
+    box-shadow: 0 8px 35px rgba(0,0,0,0.20);
+}
+
+/* LOGO */
 .brand-logo {
-    width: 160px;
+    width: 150px;
     display: block;
     margin: 0 auto;
 }
 
 .subtitle {
     text-align: center;
-    color: #7a85a0;
     font-size: 18px;
+    color: #7a85a0;
     margin-top: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-.title {
-    text-align: center;
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 25px;
+/* =========================================
+   TWO COLUMNS
+========================================= */
+.form-container {
+    display: flex;
+    gap: 65px; /* SPACE BETWEEN LEFT/RIGHT */
+    align-items: flex-start;
 }
 
-/* ---------- INPUTS & SELECTS ---------- */
-label {
+/* LEFT SIDE */
+.left-side {
+    width: 50%;
+}
+
+.left-side label {
+    margin-top: 20px;
     display: block;
-    margin-top: 15px;
     font-weight: 600;
-    color: #333;
 }
 
-input, select {
+/* =========================================
+   INPUT FIELDS (FULL MATCH STYLE)
+========================================= */
+input[type="text"],
+input[type="email"],
+.display-box {
     width: 100%;
-    padding: 14px;
+    padding: 15px;
     margin-top: 8px;
-    margin-bottom: 8px;
-
     background: #faf8ff;
     border: 1px solid #dcd2ff;
     border-radius: 14px;
-
-    font-size: 15px;
-    line-height: 1.2;
-
+    font-size: 16px;
     outline: none;
-    box-sizing: border-box;
-    transition: 0.25s ease;
+    color: #222;
+    transition: 0.25s;
 }
 
-/* ---------- PRETTY SELECT ARROW ---------- */
-select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 8L10 13L15 8' stroke='%23582c83' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 16px;
+input::placeholder,
+.display-box::placeholder {
+    color: #b3a6d6; /* normal light grey */
 }
 
-input:hover, select:hover {
-    border-color: #b79cff;
-}
-
-input:focus, select:focus {
-    border-color: #7647c9;
-    box-shadow: 0 0 7px rgba(118, 71, 201, 0.45);
-}
-
-/* Autofill Fix */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-    box-shadow: 0 0 0px 1000px #faf8ff inset !important;
-}
-
-/* ---------- BUTTON ---------- */
+/* =========================================
+   REGISTER BUTTON
+========================================= */
 .btn {
     width: 100%;
-    padding: 14px;
-    margin-top: 35px;
-
+    padding: 16px;
+    margin-top: 40px;
     background: linear-gradient(90deg, #4a1d74, #7a3eb1, #e2a423);
-    border: none;
     border-radius: 14px;
-
     color: white;
-    font-size: 17px;
-    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
     transition: 0.3s;
 }
 
 .btn:hover {
-    filter: brightness(1.1);
+    filter: brightness(1.13);
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   RIGHT SIDE PANEL
+========================================= */
+.right-side {
+    width: 50%;
+    background: #f5f0ff;
+    border: 2px solid #e0d3ff;
+    padding: 25px 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* SPACING BETWEEN ITEMS */
+}
+
+.right-side label {
+    font-weight: 600;
+}
+
+/* =========================================
+   BUTTON GROUPS
+========================================= */
+.choice-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* SPACE BETWEEN BUTTONS */
+}
+
+/* OPTION BUTTONS */
+.choice-btn {
+    text-align: left;
+    padding: 15px;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #d8cfff;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 15px;
+}
+
+/* HOVER */
+.choice-btn:hover:not(.disabled):not(.selected) {
+    background: #C372FD;
+}
+
+/* SELECTED (Style B: thicker border) */
+.choice-btn.selected {
+    background: #C372FD;
+    border: 2px solid #7647c9;
+    box-shadow: 0 0 0 1px rgba(118, 71, 201, 0.35);
+}
+
+/* DISABLED */
+.choice-btn.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   RESPONSIVE BREAKPOINTS
+========================================= */
+@media (max-width: 900px) {
+
+    .form-container {
+        flex-direction: column;
+        gap: 30px; /* space between left and right */
+    }
+
+    .left-side,
+    .right-side {
+        width: 100%;
+    }
+
+    .card {
+        padding: 40px 35px;
+        border-radius: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .card {
+        padding: 30px 20px;
+    }
+
+    input, .display-box {
+        font-size: 15px;
+        padding: 13px;
+    }
+
+    .choice-btn {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
 }
