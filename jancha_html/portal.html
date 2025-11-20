@@ -73,6 +73,7 @@
         <a href="#lease">Assignment</a>
         <a href="#fees">Fees</a>
         <a href="#maintenance">Maintenance</a>
+        <a href="#ca_profile">CA Profile</a>
     </aside>
 
     <!-- MAIN CONTENT -->
@@ -125,6 +126,23 @@
                 <div style="margin-bottom: 10px;">
             <label>Filter by Status: 
                 <select id="maintenance-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">All Requests</option>
+                    <option value="pending">Pending</option>
+                    <option value="received">Received</option>
+                </select>
+            </label>
+        </div>
+                <div id="maintenance-content">
+                    <p class="loading">Loading maintenance data...</p>
+                </div>
+            </section>
+
+
+            <section id="ca_profile" class="bubble">
+                <h2>Maintenance Requests</h2>
+                <div style="margin-bottom: 10px;">
+            <label>Filter by Housing Unit: 
+                <select id="housing-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                     <option value="">All Requests</option>
                     <option value="pending">Pending</option>
                     <option value="received">Received</option>
