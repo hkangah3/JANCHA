@@ -10,6 +10,43 @@
 
     <!-- PAGE CSS -->
     <link rel="stylesheet" href="portal ext.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .status-unpaid {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .status-late {
+            color: #f57c00;
+            font-weight: bold;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #d32f2f;
+            padding: 10px;
+            background-color: #ffebee;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
 
@@ -21,8 +58,8 @@
 
     <ul class="nav-links">
         <li><a href="portal.html">Housing Portal</a></li>
-        <li><a href="apply.html">Application</a></li>
-        <li><a href="plans.html">Catalog</a></li>
+        <li><a href="application.html">Apply Now</a></li>
+        <li><a href="plans.html">Explore Options</a></li>
     </ul>
 </nav>
 
@@ -31,8 +68,8 @@
     <!-- SIDEBAR -->
     <aside class="sidebar">
         <h3>Dashboard</h3>
-        <a href="#profile">Profile</a>
-        <a href="#room_assignment">Room Assignment</a>
+        <a href="#profile">Student Profile</a>
+        <a href="#Assignment">Assignment</a>
         <a href="#fees">Fees</a>
         <a href="#maintenance">Maintenance</a>
     </aside>
@@ -41,29 +78,378 @@
     <main class="content">
 
         <!-- EACH BUBBLE SECTION -->
-        <section id="profile" class="bubble">
-            <h2>Profile</h2>
-            <p>database</p>
+         <section id="profile" class="bubble">
+            <h2>Student Profile</h2>
+            <div style="margin-bottom: 10px;">
+                <label>Filter by Enrollment Status: 
+                    <select id="enrollment-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="">All Students</option>
+                        <option value="Freshman">Freshman</option>
+                        <option value="Sophomore">Sophomore</option>
+                        <option value="Junior">Junior</option>
+                        <option value="Senior">Senior</option>
+                    </select>
+                </label>
+            </div>
+            <div id="students-content">
+                <p class="loading">Loading student data...</p>
+            </div>
         </section>
-
-        <section id="room_assignment" class="bubble">
-            <h2>Room Assignment</h2>
-            <p>database</p>
-        </section>
-
-        <section id="fees" class="bubble">
-            <h2>Fees</h2>
-            <p>database</p>
-        </section>
-
-        <section id="maintenance" class="bubble">
-            <h2>Maintenance Requests</h2>
-            <p>database</p>
-        </section>
-
-    </main>
-</div>
+        
+                <section id="Assignment" class="bubble">
+                    <h2>Assignment</h2>
+                    <div id="assignment-content">
+                        <p class="loading">Loading assignment data...</p>
+                    </div>
+                </section>
+        
+                <section id="fees" class="bubble">
+                    <h2>Outstanding Fees</h2>
+                    <div style="margin-bottom: 10px;">
+                <label>Filter by Payment Status: 
+                    <select id="fees-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="">All Fees</option>
+                        <option value="Unpaid">Unpaid Only</option>
+                        <option value="Late">Late Only</option>
+                    </select>
+                </label>
+            </div>
+                    <div id="fees-content">
+                        <p class="loading">Loading fees data...</p>
+                    </div>
+                </section>
+        
+                <section id="maintenance" class="bubble">
+                    <h2>Maintenance Requests</h2>
+                    <div style="margin-bottom: 10px;">
+                <label>Filter by Status: 
+                    <select id="maintenance-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="">All Requests</option>
+                        <option value="pending">Pending</option>
+                        <option value="received">Received</option>
+                    </select>
+                </label>
+            </div>
+                    <div id="maintenance-content">
+                        <p class="loading">Loading maintenance data...</p>
+                    </div>
+                </section>
+        
+            </main>
+        </div>
 
 <script src="portal_fx.js"></script>
+<script>
+    
+// Store all fees data globally
+let allFeesData = [];
+// Load and display fees data with filtering
+async function loadFeesData(filterStatus = '') {
+    try {
+        // Only fetch from server if we don't have data yet
+        if (allFeesData.length === 0) {
+            const response = await fetch('fee.php');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.error) {
+                document.getElementById('fees-content').innerHTML = `<p class="error">Error: ${data.error}</p>`;
+                return;
+            }
+            
+            // Store the data globally
+            allFeesData = data;
+        }
+        
+        // Filter the data
+        let filteredData = allFeesData;
+        if (filterStatus !== '') {
+            filteredData = allFeesData.filter(fee => fee.paid_status === filterStatus);
+        }
+        
+        // Display the table
+        const feesContent = document.getElementById('fees-content');
+        
+        if (filteredData.length === 0) {
+            feesContent.innerHTML = '<p>No fees found for this filter.</p>';
+            return;
+        }
+        
+        // Create table
+        let tableHTML = `
+            <table>
+                <tr>
+                    <th>Student ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                </tr>
+        `;
+        
+        filteredData.forEach(row => {
+            const statusClass = row.paid_status.toLowerCase().replace(' ', '-');
+            const amount = parseFloat(row.fee_amount).toFixed(2);
+            const dueDate = new Date(row.due_date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+            
+            tableHTML += `
+                <tr>
+                    <td>${row.student_id}</td>
+                    <td>${row.first_name}</td>
+                    <td>${row.last_name}</td>
+                    <td>${row.email}</td>
+                    <td>$${amount}</td>
+                    <td>${dueDate}</td>
+                    <td class="status-${statusClass}">${row.paid_status}</td>
+                </tr>
+            `;
+        });
+        
+        tableHTML += '</table>';
+        feesContent.innerHTML = tableHTML;
+        
+    } catch (error) {
+        console.error('Error loading fees:', error);
+        document.getElementById('fees-content').innerHTML = 
+            `<p class="error">Failed to load fees data: ${error.message}</p>`;
+    }
+}
+    //Load assignment table
+    async function loadAssignmentData() {
+        try {
+            const response = await fetch('assignment.php');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            
+            const assignmentContent = document.getElementById('assignment-content');
+            
+            if (data.error) {
+                assignmentContent.innerHTML = `<p class="error">Error: ${data.error}</p>`;
+                return;
+            }
+            
+            if (data.length === 0) {
+                assignmentContent.innerHTML = '<p>No room assignments found.</p>';
+                return;
+            }
+            
+            // Create table
+            let tableHTML = `
+                <table>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Room Number</th>
+                        <th>Dorm Name</th>
+                        <th>Roommates</th>
+                    </tr>
+            `;
+            
+            data.forEach(row => {
+                tableHTML += `
+                    <tr>
+                        <td>${row.student_id}</td>
+                        <td>${row.first_name}</td>
+                        <td>${row.last_name}</td>
+                        <td>${row.room_number}</td>
+                        <td>${row.dorm_name}</td>
+                        <td>${row.roommates || 'None'}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += '</table>';
+            assignmentContent.innerHTML = tableHTML;
+            
+        } catch (error) {
+            console.error('Error loading assignments:', error);
+            document.getElementById('assignments-content').innerHTML = 
+                `<p class="error">Failed to load assignments data: ${error.message}</p>`;
+        }
+    }
+
+    // Store all fees data globally
+    let maintenanceData = [];
+    // Load maintenance requests
+    async function loadMaintenanceData(filterStatus = '') {
+        try {
+            if(maintenanceData.length == 0){
+            const response = await fetch('maintenance.php');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+
+               if (data.error) {
+                document.getElementById('maintenance-content').innerHTML = `<p class="error">Error: ${data.error}</p>`;
+                return;
+            }
+            
+            // Store the data globally
+            maintenanceData = data;
+        }
+        
+        // Filter the data
+        let filteredData = maintenanceData;
+        if (filterStatus !== '') {
+            filteredData = maintenanceData.filter(request => request.status.toLowerCase() === filterStatus.toLowerCase());
+        }
+            const maintenanceContent = document.getElementById('maintenance-content');
+            
+            if (filteredData.length === 0) {
+                maintenanceContent.innerHTML = '<p>No pending maintenance requests found.</p>';
+                return;
+            }
+            
+            // Create table
+            let tableHTML = `
+                <table>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Dorm Name</th>
+                        <th>Room Number</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Request Date</th>
+                    </tr>
+            `;
+            
+            filteredData.forEach(row => {
+                const statusClass = row.status.toLowerCase();
+                const requestDate = new Date(row.request_date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                tableHTML += `
+                    <tr>
+                        <td>${row.request_id}</td>
+                        <td>${row.dorm_name}</td>
+                        <td>${row.room_number}</td>
+                        <td>${row.description}</td>
+                        <td class="status-${statusClass}">${row.status}</td>
+                        <td>${requestDate}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += '</table>';
+            maintenanceContent.innerHTML = tableHTML;
+            
+        } catch (error) {
+            console.error('Error loading maintenance:', error);
+            document.getElementById('maintenance-content').innerHTML = 
+                `<p class="error">Failed to load maintenance data: ${error.message}</p>`;
+        }
+    }
+    
+    //load students table
+    async function loadStudentsData(enrollmentStatus = '') {
+        try {
+            // Build URL with query parameter if status is provided
+            let url = 'students.php';
+            if (enrollmentStatus) {
+                url += `?status=${encodeURIComponent(enrollmentStatus)}`;
+        }
+        
+        const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            const studentsContent = document.getElementById('students-content');
+            
+            if (data.error) {
+                studentsContent.innerHTML = `<p class="error">Error: ${data.error}</p>`;
+                return;
+            }
+            
+            if (data.length === 0) {
+                studentsContent.innerHTML = '<p>No students found.</p>';
+                return;
+            }
+            
+            // Create table
+            let tableHTML = `
+                <table>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Enrollment Status</th>
+                    </tr>
+            `;
+            
+            data.forEach(row => {
+                tableHTML += `
+                    <tr>
+                        <td>${row.student_id}</td>
+                        <td>${row.first_name}</td>
+                        <td>${row.last_name}</td>
+                        <td>${row.email}</td>
+                        <td>${row.phone || 'N/A'}</td>
+                        <td>${row.enrollment_status}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += '</table>';
+            studentsContent.innerHTML = tableHTML;
+            
+        } catch (error) {
+            console.error('Error loading students:', error);
+            document.getElementById('students-content').innerHTML = 
+                `<p class="error">Failed to load students data: ${error.message}</p>`;
+        }
+    }
+    // Load data when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+        loadFeesData();
+        loadMaintenanceData();
+        loadAssignmentData();
+        loadStudentsData();
+
+        // Add filter listener for enrollment status
+        const enrollmentFilter = document.getElementById('enrollment-filter');
+        enrollmentFilter.addEventListener('change', function() {
+        loadStudentsData(this.value);
+        });
+
+        // Add filter listener for fee status
+        const feesFilter = document.getElementById('fees-filter');
+        feesFilter.addEventListener('change', function() {
+        loadFeesData(this.value);
+        });
+
+        // Add filter listener for maintenance status
+        const maintenanceFilter = document.getElementById('maintenance-filter');
+        maintenanceFilter.addEventListener('change', function() {
+        loadMaintenanceData(this.value);
+        });
+    });
+    
+</script>    
 </body>
 </html>
