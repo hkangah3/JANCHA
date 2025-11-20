@@ -84,3 +84,4 @@ document.querySelectorAll(".sub-slider").forEach((slider) => {
 
     updateSlider();
 });
+
